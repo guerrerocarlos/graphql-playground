@@ -1,5 +1,5 @@
 {
-  "name": "graphql-playground-react",
+  "name": "graphql-playground-react-aws",
   "version": "1.7.20",
   "main": "./lib/lib.js",
   "typings": "./lib/lib.d.ts",
