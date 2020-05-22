@@ -476,13 +476,13 @@ class PlaygroundWrapper extends React.Component<
   private async updateSubscriptionsUrl() {
     const candidates = this.getSubscriptionsUrlCandidated(this.state.endpoint)
     let validCandidate = await find(candidates, candidate =>
-      this.wsEndpointValid(candidate, 'graphql-ws'),
+      this.wsEndpointValid(candidate),
     )
-    if (!validCandidate) {
-      validCandidate = await find(candidates, candidate =>
-        this.wsEndpointValid(candidate, null),
-      )
-    }
+    // if (!validCandidate) {
+    //   validCandidate = await find(candidates, candidate =>
+    //     this.wsEndpointValid(candidate, null),
+    //   )
+    // }
     if (validCandidate) {
       this.setState({ subscriptionEndpoint: validCandidate })
     }
@@ -506,9 +506,9 @@ class PlaygroundWrapper extends React.Component<
     return candidates
   }
 
-  private wsEndpointValid(url, protocol): Promise<boolean> {
+  private wsEndpointValid(url): Promise<boolean> {
     return new Promise(resolve => {
-      const socket = new WebSocket(url, protocol)
+      const socket = new WebSocket(url)
       socket.addEventListener('open', event => {
         socket.send(JSON.stringify({ type: 'connection_init' }))
       })
