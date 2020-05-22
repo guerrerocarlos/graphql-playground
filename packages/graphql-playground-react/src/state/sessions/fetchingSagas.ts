@@ -78,10 +78,13 @@ export const defaultLinkCreator = (
   }
 
   const subscriptionClient = new SubscriptionClient(subscriptionEndpoint, {
-    timeout: 20000,
-    lazy: true,
-    connectionParams,
-  })
+      timeout: 20000,
+      lazy: true,
+      connectionParams,
+    },
+    null,
+    [],
+  )
 
   const webSocketLink = new WebSocketLink(subscriptionClient)
   return {
@@ -96,7 +99,7 @@ export const defaultLinkCreator = (
 
 let linkCreator = defaultLinkCreator
 export let schemaFetcher: SchemaFetcher = new SchemaFetcher(linkCreator)
-;(window as any).schemaFetcher = schemaFetcher
+  ;(window as any).schemaFetcher = schemaFetcher
 
 export function setLinkCreator(newLinkCreator) {
   if (newLinkCreator) {
